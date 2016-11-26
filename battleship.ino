@@ -300,11 +300,9 @@ void getPos(int8_t *p1, int8_t *p2)
 {
     int8_t desiredPos[2] = {0,0};
   int8_t buttonPos[5] = {1, 2, 3, 4, 5};
-  delay(500);
   bool confirm = false;
   while(desiredPos[1] == 0 && !confirm)
   {
-    delay(500);
     confirm = false;
     buttons = module.getButtons();
     switch(buttons)
@@ -320,6 +318,7 @@ void getPos(int8_t *p1, int8_t *p2)
           desiredPos[1] = buttonPos[0];
           displayToSevenSeg(desiredPos[0], desiredPos[1]);
         }
+        delay(500);
         break;
        case 2:
         if(desiredPos[0] == 0)
@@ -332,6 +331,7 @@ void getPos(int8_t *p1, int8_t *p2)
           desiredPos[1] = buttonPos[1];
           displayToSevenSeg(desiredPos[0], desiredPos[1]);
         }
+        delay(500);
         break;
       case 4:
         if(desiredPos[0] == 0)
@@ -344,6 +344,7 @@ void getPos(int8_t *p1, int8_t *p2)
           desiredPos[1] = buttonPos[2];
           displayToSevenSeg(desiredPos[0], desiredPos[1]);
         }
+        delay(500);
         break;
       case 8:
         if(desiredPos[0] == 0)
@@ -356,6 +357,7 @@ void getPos(int8_t *p1, int8_t *p2)
           desiredPos[1] = buttonPos[3];
           displayToSevenSeg(desiredPos[0], desiredPos[1]);
         }
+        delay(500);
         break;
       case 16:
         if(desiredPos[0] == 0)
@@ -368,6 +370,7 @@ void getPos(int8_t *p1, int8_t *p2)
           desiredPos[1] = buttonPos[4];
           displayToSevenSeg(desiredPos[0], desiredPos[1]);
         }
+        delay(500);
         break;
       case 32:
         if(buttonPos[0] == 1)
@@ -384,6 +387,7 @@ void getPos(int8_t *p1, int8_t *p2)
             buttonPos[i] -= 5;
           }
         }
+        delay(500);
         break;
       case 64:
         if(buttonPos[0] == 1)
@@ -400,19 +404,21 @@ void getPos(int8_t *p1, int8_t *p2)
             buttonPos[i] -= 5;
           }
         }
+        delay(500);
         break;
       case 128:
         confirm = true;
+        delay(500);
         break;
       default:
         break;
     }
-    delay(5000);
-    int8_t temp[8] = {0,0,0,0,0,0,0,0};
-    module.setDisplay(temp);
+    Serial.println(confirm);
+  }
+  int8_t temp[8] = {0,0,0,0,0,0,0,0};
+ //   module.setDisplay(temp);
     *p1 = desiredPos[0];
     *p2 = desiredPos[1];
-  }
 }
 
 void controls()
@@ -442,43 +448,53 @@ int8_t displayToSevenSeg(int8_t num)
   {
     case 1: //A
       sevenSegData[0] = 0b01110111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("a");
       break;
     case 2://b
       sevenSegData[0] = 0b01111100;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("b");
       break;
     case 3://C
       sevenSegData[0] = 0b00111001;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("c");
       break;
     case 4://d
       sevenSegData[0] = 0b01011110;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("d");
       break;
    case 5://E
       sevenSegData[0] = 0b01111001;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("e");
       break;
    case 6://F
       sevenSegData[0] = 0b01110001;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("f");
       break;
    case 7://g
       sevenSegData[0] = 0b01101111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("g");
       break;
    case 8://H
       sevenSegData[0] = 0b01110110;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("h");
       break;
    case 9://I
       sevenSegData[0] = 0b00000110;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("i");
       break;
    case 10://J
       sevenSegData[0] = 0b00001110;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("j");
       break;
    default:
       break;
@@ -494,43 +510,53 @@ void displayToSevenSeg(int8_t num1, int8_t num2)
   {
     case 1: //1
       sevenSegData[1] = 0b00110000;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("1");
       break;
     case 2://2
       sevenSegData[1] = 0b01011011;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("2");
       break;
     case 3://3
       sevenSegData[1] = 0b01001111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("3");
       break;
     case 4://4
       sevenSegData[4] = 0b01100110;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("4");
       break;
    case 5://5
       sevenSegData[0] = 0b01101101;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("5");
       break;
    case 6://6
       sevenSegData[0] = 0b01111101;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("6");
       break;
    case 7://7
       sevenSegData[0] = 0b00000111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("7");
       break;
    case 8://8
       sevenSegData[0] = 0b01111111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("8");
       break;
    case 9://9
       sevenSegData[0] = 0b01101111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("9");
       break;
    case 10://0
       sevenSegData[0] = 0b00111111;
-      module.setDisplay(sevenSegData);
+      module.setDisplay(sevenSegData, 8);
+      Serial.println("10");
       break;
    default:
       break;
