@@ -295,16 +295,16 @@ void fire(int8_t player)
       drawBoard(0, 1);
       break;
   }
+  int8_t desiredPos[2] = {0, 0};
   do
   {
-    int8_t desiredPos[2] = {0, 0};
     getPos(&desiredPos[0], &desiredPos[1]);
   } while (desiredPos[0] > 127 || desiredPos[1] > 127);
-  gameBoards[desiredPos[0][desiredPos[1]]] += 128;
+  gameBoards[player][desiredPos[0]][desiredPos[1]] += 128;
   getHit(desiredPos, player);
 }
 
-void getHit(int8_t pos[2], player)
+void getHit(int8_t pos[2], int8_t player)
 {
   if(player == 1)
   {
@@ -332,7 +332,7 @@ void hasWon()
 {
   for(int i = 0; i < 2; i++)
   {
-    playerRemaining = 5;
+    int8_t playerRemaining = 5;
     for(int j = 0; j < 5; j++)
     {
       if(shipPos[i][j][0][0] == NULL && shipPos[i][j][0][1] == NULL && shipPos[i][j][0][2] == NULL && shipPos[i][j][0][3] == NULL && shipPos[i][j][0][4] == NULL)
@@ -342,7 +342,7 @@ void hasWon()
     }
     if(playerRemaining == 0)
     {
-      complete(i)
+      complete(i);
     }
   }
 }
@@ -395,7 +395,7 @@ void drawBoard(int8_t board, int8_t player)
   int turns = 0;
   while(!gameComplete)
   {
-    if(turns % 2 = 1)
+    if(turns % 2 == 1)
     {
       fire(1);
     }
@@ -484,6 +484,7 @@ void loadInToArray(int8_t startPos[2], int8_t endPos[2], int8_t player, int8_t s
   Serial.println("Loading");
   if(startPos[0] == endPos[0])
   {
+    Serial.println("Branch 1");
     if(startPos[1] > endPos[1])
     {
       for(int8_t i = 0; i < len; i++)
@@ -505,6 +506,7 @@ void loadInToArray(int8_t startPos[2], int8_t endPos[2], int8_t player, int8_t s
   }
   else
   {
+    Serial.println("Branch 2");
     if(startPos[0] > endPos[0])
     {
       for(int8_t i = 0; i < len; i++)
@@ -527,8 +529,7 @@ void loadInToArray(int8_t startPos[2], int8_t endPos[2], int8_t player, int8_t s
   Serial.println(shipPos[player][ship][0][0]);
   for(int8_t i = 0; i > len; i++)
   {
-    gameBoards[player][shipPos[player][ship][0][i]] += 1;
-    gameBoards[player][shipPos[player][ship][1][i]] += 1;
+    gameBoards[player][shipPos[player][ship][0][i]][shipPos[player][ship][1][i]] += 1;
   }
 }
 
